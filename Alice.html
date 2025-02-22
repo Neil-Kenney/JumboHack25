@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alice in Wonderland</title>
+  <style>
+    /* Base styles */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: linear-gradient(to bottom, #a8e6cf, #dcedc1);
+      font-family: 'Comic Sans MS', 'Cursive', sans-serif;
+      text-align: center;
+      color: #333;
+      position: relative;
+      cursor: url('https://cdn-icons-png.flaticon.com/512/246/246163.png'), auto; /* Optional whimsical cursor */
+    }
+    
+    /* Main content styling */
+    #content {
+      position: relative;
+      z-index: 10;
+      padding-top: 60px;
+    }
+    h1 {
+      font-size: 3em;
+      margin: 20px 0;
+    }
+    p {
+      font-size: 1.5em;
+      margin: 20px;
+    }
+    #enterBtn, #teaPartyBtn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background: #ffab91;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 20px;
+    }
+    #enterBtn:hover, #teaPartyBtn:hover {
+      background: #ff8a65;
+    }
+    
+    /* Falling element styles */
+    .falling-card, .click-card {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.8;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear;
+    }
+    .click-card {
+      animation: clickFall 1s forwards;
+    }
+    
+    /* Keyframes for falling animation */
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    @keyframes clickFall {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(50px) scale(1.5);
+        opacity: 0;
+      }
+    }
+    
+    /* Cheshire Cat styling */
+    #cheshireCat {
+      position: absolute;
+      width: 80px;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+      z-index: 20;
+    }
+    
+    /* Tea Party modal styling */
+    #teaModal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+    #teaModalContent {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 90%;
+    }
+    #closeModal {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ffab91;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>Welcome to Wonderland</h1>
+    <p>"Curiouser and curiouser!"</p>
+    <button id="enterBtn">Enter Wonderland</button>
+  </div>
+
+  <!-- Hidden audio element for background music -->
+  <audio id="bgMusic" src="your-music.mp3" loop></audio>
+
+  <!-- Hidden Cheshire Cat image (replace the src with your own image) -->
+  <img id="cheshireCat" src="https://i.imgur.com/zBrXEHKg.jpg" alt="Cheshire Cat" />
+
+  <!-- Tea Party Modal -->
+  <div id="teaModal">
+    <div id="teaModalContent">
+      <h2>Mad Tea Party</h2>
+      <p>Welcome to the tea party! Enjoy a whimsical chat with the mad hatter and friends.</p>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to create a falling playing card
+    function createFallingCard() {
+      const card = document.createElement('div');
+      card.classList.add('falling-card');
+      const cards = ['♠', '♥', '♣', '♦'];
+      card.textContent = cards[Math.floor(Math.random() * cards.length)];
+      card.style.left = Math.random() * window.innerWidth + 'px';
+      const duration = 3 + Math.random() * 5;
+      card.style.animationDuration = duration + 's';
+      document.body.appendChild(card);
+      card.addEventListener('animationend', () => card.remove());
+    }
+    
+    // Generate falling cards continuously
+    setInterval(createFallingCard, 500);
+
+    // Play extra card burst on click
+    document.body.addEventListener('click', (e) => {
+      // Create a burst effect at the click location
+      for (let i = 0; i < 5; i++) {
+        const card = document.createElement('div');
+        card.classList.add('click-card');
+        const cards = ['♠', '♥', '♣', '♦'];
+        card.textContent = cards[Math.floor(Math.random() * cards.length)];
+        card.style.left = e.pageX + (Math.random() * 50 - 25) + 'px';
+        card.style.top = e.pageY + (Math.random() * 50 - 25) + 'px';
+        document.body.appendChild(card);
+        card.addEventListener('animationend', () => card.remove());
+      }
+    });
+
+    // Manage background music and content changes
+    document.getElementById('enterBtn').addEventListener('click', () => {
+      // Start background music
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.3;
+      music.play().catch(() => {
+        console.log('User interaction required to play audio.');
+      });
+      
+      // Change main content and reveal tea party button
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <h1>Down the Rabbit Hole...</h1>
+        <p>Enjoy your journey in Wonderland! Discover mad tea parties, curious characters, and endless adventures.</p>
+        <button id="teaPartyBtn">Join the Tea Party</button>
+      `;
+      // Add tea party button event listener after it's in the DOM
+      document.getElementById('teaPartyBtn').addEventListener('click', () => {
+        document.getElementById('teaModal').style.display = 'flex';
+      });
+    });
+
+    // Close Tea Party Modal
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('teaModal').style.display = 'none';
+    });
+
+    // Interactive Cheshire Cat effect
+    let lastCatTime = 0;
+    document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      // Only show cat if more than 3 seconds have passed since last appearance
+      if (now - lastCatTime > 3000) {
+        lastCatTime = now;
+        const cat = document.getElementById('cheshireCat');
+        cat.style.left = (e.pageX + 20) + 'px';
+        cat.style.top = (e.pageY - 40) + 'px';
+        cat.style.opacity = 1;
+        // Fade out after 1.5 seconds
+        setTimeout(() => {
+          cat.style.opacity = 0;
+        }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>
