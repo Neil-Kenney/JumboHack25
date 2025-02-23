@@ -1,13 +1,12 @@
 /* game.cpp
  * Author: Neil Kenney
- * Date: 2/19/25
+ * Date: 2/22/25
  * Purpose: run one round of Waltdle game
  * */
 
 #include "game.h"
 
 Game::Game(string filename) {    
-    //cout << "initializing game" << endl;
     ifstream infile;
     infile.open(filename);
     if (infile.fail()) {
@@ -19,19 +18,13 @@ Game::Game(string filename) {
     float mBudget, mEarnings, mScore;
     Data add;
     for (int i = 0; i < 20; i++) {
-        //mTitle = " ";
         getline(infile, mTitle);
         getline(infile, hint1);
         getline(infile, hint2);
-        //cout << mTitle << " ";
         infile >> mYear;
-        //cout << mYear << " ";
         infile >> mRuntime;
-        //cout << mRuntime << " ";
         infile >> mBudget;
-        //cout << mBudget << " ";
         infile >> mEarnings;
-        //cout << mEarnings << " ";
         infile >> mScore;
         add = new Movie(mTitle, mYear, mRuntime, mBudget, mEarnings, mScore,
                         hint1, hint2);
@@ -42,21 +35,10 @@ Game::Game(string filename) {
 }
 
 void Game::playGame() {
-    //cout << "in playGame" << endl;
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(0, NUM_MOVIES-1);
     int rdIndex = dis(gen);
-    //cout << rdIndex << endl;
-    // int storeSize = list.size();
-    // for (int i=0; i<storeSize; i++) {
-    //     cout << this->list.at(i)->getName() << " - ";
-    //     cout << this->list.at(i)->getYear() << " - ";
-    //     cout << this->list.at(i)->getRuntime() << " - ";
-    //     cout << this->list.at(i)->getBudget() << " - ";
-    //     cout << this->list.at(i)->getEarnings();
-    //     cout << endl;
-    // }
     explain();
     mainQuery(rdIndex);
 }
@@ -94,33 +76,7 @@ void Game::mainQuery(int tgtIndex) {
     cout << "\033[4mEnter a number 1-4\033[0m: ";
     int choice;
     cin >> choice;
-    // while (true) {
-    //     cin >> choice;
-    //     // if (cin.fail() || (choice != 1 && choice != 2 && choice != 3)) {
-    //     //     cin.clear();
-    //     //     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    //     //     cout << "Invalid input! Please enter a valid integer: ";
-    //     //     continue;
-    //     // }
-    //     if (!cin.fail() && (choice >= 1 && choice < 4)) {
-    //         break;
-    //     }
-    //     cin.clear();
-    //     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    // }
-
     while (choice != 4) {
-        // while (true) {
-        //     cin >> choice;
-
-        //     if (cin.fail() || (choice != 2 && choice != 3 && choice != 4)) {
-        //         cin.clear();
-        //         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        //         cout << "Invalid input! Please enter a valid integer: ";
-        //         continue;
-        //     }
-        //     break;
-        // }
         if (choice == 1) {
             bool isWinner = handleGuess(tgtIndex);
             if (isWinner) {
@@ -169,7 +125,6 @@ void Game::listMovies() {
 bool Game::handleGuess(int tgtIndex) {
     cout << endl << "\033[4mEnter a movie title\033[0m: ";
     string guess;
-    //cin >> guess;
     cin.ignore();
     getline(cin, guess);
     int gIndex = find(guess);
@@ -188,14 +143,11 @@ bool Game::handleGuess(int tgtIndex) {
 }
 
 int Game::find(string guess) {
-    //cout << "working" << endl;
     for (int i = 0; i < NUM_MOVIES; i++) { 
         if (this->list.at(i)->getName() == guess) {
-            //cout << "found movie" << endl;
             return i;
         }
     }
-    //cout << "didn't find movie" << endl;
     return NUM_MOVIES;
 }
 

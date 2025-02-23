@@ -1,6 +1,6 @@
 /* movie.cpp
  * Author: Neil Kenney
- * Date: 2/19/25
+ * Date: 2/22/25
  * Purpose: set, get, and delete information about characters
  * */
 
@@ -8,8 +8,6 @@
 
 Movie::Movie(string title, int year, int runtime, float budget, 
              float earnings, float score, string prodHint, string plotHint) {
-    //cout << "initializing movie " << title << endl;
-    //transfer information to current card
     this->title = title;
     this->year = year;
     this->runtime = runtime;
@@ -22,7 +20,6 @@ Movie::Movie(string title, int year, int runtime, float budget,
 
 Movie::~Movie() {
 }
-
 
 string Movie::getName() {
     return title;

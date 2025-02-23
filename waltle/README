@@ -1,1 +1,16 @@
 JumboHack 2025
+
+Team: Walt's Warriors
+
+Goals: Develop a Disney-inspired version of Wordle run in terminal using C++. 
+Make the game easy to follow, visually appealing, and interesting in concept.
+
+Members:
+1- Neil Kenney: Design the front and backend of game, manage team, and build
+program
+2- Michael Bachman: Help with concept and creative development
+3- Brandon Huang: Debugging, testing, optimizing code
+
+Acknowledgement: All hints were generated using ChatGPT. Some small pieces of
+code were generated using ChatGPT, including random number generation and ANSI
+escape codes for different colors.

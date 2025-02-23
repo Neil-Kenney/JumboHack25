@@ -1,6 +1,6 @@
 /* game.h
  * Author: Neil Kenney
- * Date: 2/19/25
+ * Date: 2/22/25
  * Purpose: store info about game
  * */
 
@@ -42,7 +42,6 @@ class Game {
 
     private:
     Vector list;
-
 };
 
 #endif

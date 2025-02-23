@@ -1,6 +1,6 @@
 /* movie.h
  * Author: Neil Kenney
- * Date: 2/19/25
+ * Date: 2/22/25
  * Purpose: declare Princess struct and hold information about characters
  * */
 
@@ -8,7 +8,6 @@
 #define MOVIE_H
 
 #include <iostream>
-//#include <fstream>
 #include <string>
 
 using namespace std;
@@ -17,11 +16,9 @@ const int NUM_MOVIES = 20;
 
 class Movie {
     public:
-    //constructor/destructor
     Movie(string title, int year, int runtime, float budget, float earnings,
           float score, string prodHint, string plotHint);
     ~Movie();
-    //getters
     string getName();
     int getYear();
     int getRuntime();
