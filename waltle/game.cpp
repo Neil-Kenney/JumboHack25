@@ -13,7 +13,7 @@ Game::Game(string filename) {
         cout << "Error occurred while opening file" << endl;
         exit(EXIT_FAILURE); 
     }
-    string mTitle, hint1, hint2;
+    string mTitle, hint1, hint2, hint3;
     int mYear, mRuntime;
     float mBudget, mEarnings, mScore;
     Data add;
@@ -21,13 +21,14 @@ Game::Game(string filename) {
         getline(infile, mTitle);
         getline(infile, hint1);
         getline(infile, hint2);
+        getline(infile, hint3);
         infile >> mYear;
         infile >> mRuntime;
         infile >> mBudget;
         infile >> mEarnings;
         infile >> mScore;
         add = new Movie(mTitle, mYear, mRuntime, mBudget, mEarnings, mScore,
-                        hint1, hint2);
+                        hint1, hint2, hint3);
         this->list.push_back(add);
         infile.ignore();
     }
@@ -153,26 +154,26 @@ int Game::find(string guess) {
 
 void Game::giveHint(int tgtIndex) {
     cout << endl << "Would you like a hint about:" << endl;
-    cout << "1: Production" << endl;
-    cout << "2: Plot" << endl << endl;
-    cout << "\033[4mEnter a number 1-2\033[0m: ";
+    cout << "1: Setting" << endl;
+    cout << "2: Production" << endl;
+    cout << "3: Plot" << endl << endl;
+    cout << "\033[4mEnter a number 1-3\033[0m: ";
     int choice;
     cin >> choice;
     if (choice == 1) {
         cout << endl << "\033[94m";
+        cout << this->list.at(tgtIndex)->getLocHint() << "\033[0m";
+        cout << endl << endl;
+    }
+    if (choice == 2) {
+        cout << endl << "\033[94m";
         cout << this->list.at(tgtIndex)->getProdHint() << "\033[0m";
         cout << endl << endl;
     }
-    else if (choice == 2) {
+    else if (choice == 3) {
         cout << endl << "\033[94m";
         cout << this->list.at(tgtIndex)->getPlotHint() << "\033[0m";
         cout << endl << endl;
-    }
-    else {
-        cout << endl;
-        cout << "Entry not recognized. Please try again.";
-        cout << endl << endl;
-        return;
     }
 }
 

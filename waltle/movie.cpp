@@ -7,13 +7,15 @@
 #include "movie.h"
 
 Movie::Movie(string title, int year, int runtime, float budget, 
-             float earnings, float score, string prodHint, string plotHint) {
+             float earnings, float score, string locHint, string prodHint, 
+             string plotHint) {
     this->title = title;
     this->year = year;
     this->runtime = runtime;
     this->budget = budget;
     this->earnings = earnings;
     this->score = score;
+    this->locHint = locHint;
     this->prodHint = prodHint;
     this->plotHint = plotHint;
 }
@@ -43,6 +45,10 @@ float Movie::getEarnings() {
 
 float Movie::getScore() {
     return score;
+}
+
+string Movie::getLocHint() {
+    return locHint;
 }
 
 string Movie::getProdHint() {
