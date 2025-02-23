@@ -1,15 +1,15 @@
-JumboHack 2025
-
-Team: Walt's Warriors
+Project name: Waltle
+Created for: JumboHack 2025 under the "Down the Rabbit Hole" track
 
 Goals: Develop a Disney-inspired version of Wordle run in terminal using C++. 
-Make the game easy to follow, visually appealing, and interesting in concept.
+We wanted to make the game easy to follow, visually appealing, with diverse 
+functionality.
 
 Members:
-1- Neil Kenney: Design the front and backend of game, manage team, and build
+Neil Kenney - Design the front and backend of game, manage team, and build
 program
-2- Michael Bachman: Help with concept and creative development
-3- Brandon Huang: Debugging, testing, optimizing code
+Michael Bachman - Help with concept and creative development
+Brandon Huang - Debugging, testing, optimizing code
 
 Acknowledgement: All hints were generated using ChatGPT. Some small pieces of
 code were generated using ChatGPT, including random number generation and ANSI
