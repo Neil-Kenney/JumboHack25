@@ -39,6 +39,8 @@ class Game {
     void compareBudget(int gIndex, int tgtIndex);
     void compareEarnings(int gIndex, int tgtIndex);
     void compareScore(int gIndex, int tgtIndex);
+    void winnerStats(int tgtIndex);
+    void displayStats(int tgtIndex);
 
     private:
     Vector list;

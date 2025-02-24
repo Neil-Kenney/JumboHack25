@@ -73,11 +73,12 @@ void Game::explain() {
 void Game::mainQuery(int tgtIndex) {
     int round = 1;
     cout << "1: make a guess" << endl << "2: list movies" << endl; 
-    cout << "3: get a hint" << endl << "4: quit game" << endl << endl;
+    cout << "3: get a hint" << endl << "4: see stats" << endl << "5: quit game";
+    cout << endl << endl;
     cout << "\033[4mEnter a number 1-4\033[0m: ";
     int choice;
     cin >> choice;
-    while (choice != 4) {
+    while (choice != 5) {
         if (choice == 1) {
             bool isWinner = handleGuess(tgtIndex);
             if (isWinner) {
@@ -87,6 +88,9 @@ void Game::mainQuery(int tgtIndex) {
         }
         if (round > 5) {
             cout << "\033[31mYou lost. Better luck next time!\033[0m" << endl;
+            cout << endl << "The correct answer was..." << endl << endl;
+            cout << "Title: " << this->list.at(tgtIndex)->getName();
+            displayStats(tgtIndex);
             break;
         }
         if (round == 5) {
@@ -99,8 +103,13 @@ void Game::mainQuery(int tgtIndex) {
         if (choice == 3) {
             giveHint(tgtIndex);
         }
+        if (choice == 4) {
+            displayStats(tgtIndex);
+            cout << endl;
+        }
         cout << "1: make a guess" << endl << "2: list movies" << endl; 
-        cout << "3: get a hint" << endl << "4: quit game" << endl << endl;
+        cout << "3: get a hint" << endl << "4: see stats" << endl;
+        cout << "5: quit game" << endl << endl;
         cout << "\033[4mEnter a number 1-4\033[0m: ";
         cin >> choice;
     }
@@ -137,6 +146,7 @@ bool Game::handleGuess(int tgtIndex) {
     }
     if (gIndex == tgtIndex) {
         cout << endl << "\033[32mYou won!\033[0m" << endl;
+        winnerStats(tgtIndex);
         return true;
     }
     compareAll(gIndex, tgtIndex);
@@ -268,4 +278,49 @@ void Game::compareScore(int gIndex, int tgtIndex) {
     else {
         cout << " \033[32m(correct)\033[0m" << endl;
     }
+}
+
+void Game::winnerStats(int tgtIndex) {
+    cout << endl;
+    cout << "Title: " << this->list.at(tgtIndex)->getName();
+    cout << " \033[32m(correct)\033[0m" << endl;
+    cout << "Release year: " << this->list.at(tgtIndex)->getYear();
+    cout << " \033[32m(correct)\033[0m" << endl;
+    cout << "Runtime: " << this->list.at(tgtIndex)->getRuntime();
+    cout << " \033[32m(correct)\033[0m" << endl;
+    float answerBudget = this->list.at(tgtIndex)->getBudget();
+    if (answerBudget == 0) {
+        cout << "No budget data";
+    }
+    else {
+        cout << "Budget (millions of $): " << answerBudget;
+        cout << " \033[32m(correct)\033[0m";
+    }
+    cout << endl;
+    cout << "Earnings (millions of $): ";
+    cout << this->list.at(tgtIndex)->getEarnings();
+    cout << " \033[32m(correct)\033[0m" << endl;
+    cout << "IMDb score (out of 10.0): " << this->list.at(tgtIndex)->getScore();
+    cout << " \033[32m(correct)\033[0m" << endl;
+}
+
+void Game::displayStats(int tgtIndex) {
+    cout << endl;
+    cout << "Release year: " << this->list.at(tgtIndex)->getYear();
+    cout << endl;
+    cout << "Runtime: " << this->list.at(tgtIndex)->getRuntime();
+    cout << endl;
+    float answerBudget = this->list.at(tgtIndex)->getBudget();
+    if (answerBudget == 0) {
+        cout << "No budget data";
+    }
+    else {
+        cout << "Budget (millions of $): " << answerBudget;
+    }
+    cout << endl;
+    cout << "Earnings (millions of $): ";
+    cout << this->list.at(tgtIndex)->getEarnings();
+    cout << endl;
+    cout << "IMDb score (out of 10.0): " << this->list.at(tgtIndex)->getScore();
+    cout << endl;
 }
