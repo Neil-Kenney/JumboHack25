@@ -75,7 +75,7 @@ void Game::mainQuery(int tgtIndex) {
     cout << "1: make a guess" << endl << "2: list movies" << endl; 
     cout << "3: get a hint" << endl << "4: see stats" << endl << "5: quit game";
     cout << endl << endl;
-    cout << "\033[4mEnter a number 1-4\033[0m: ";
+    cout << "\033[4mEnter a number 1-5\033[0m: ";
     int choice;
     cin >> choice;
     while (choice != 5) {
@@ -110,7 +110,7 @@ void Game::mainQuery(int tgtIndex) {
         cout << "1: make a guess" << endl << "2: list movies" << endl; 
         cout << "3: get a hint" << endl << "4: see stats" << endl;
         cout << "5: quit game" << endl << endl;
-        cout << "\033[4mEnter a number 1-4\033[0m: ";
+        cout << "\033[4mEnter a number 1-5\033[0m: ";
         cin >> choice;
     }
     cout << endl << "\033[94m";
